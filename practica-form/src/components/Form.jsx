@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Form = () => {
+const Form = ({ onSubmit, refs, errores }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,6 +17,7 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // hacer una callback al componente padre enviando el formData
+    onSubmit(formData);
   };
 
   return (
@@ -28,7 +29,9 @@ const Form = () => {
           name="name"
           value={formData.name}
           onChange={handleChange}
+          ref={refs.nameRef}
         />
+        {errores.name && <p style={{ color: "red" }}>{errores.name}</p>}
       </div>
       <div>
         <label>Email:</label>
@@ -37,7 +40,9 @@ const Form = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
+          ref={refs.emailRef}
         />
+        {errores.email && <p style={{ color: "red" }}>{errores.email}</p>}
       </div>
       <div>
         <label>Contraseña:</label>
@@ -46,7 +51,9 @@ const Form = () => {
           name="password"
           value={formData.password}
           onChange={handleChange}
+          ref={refs.passwordRef}
         />
+        {errores.password && <p style={{ color: "red" }}>{errores.password}</p>}
       </div>
 
       <button type="submit">Enviar</button>
